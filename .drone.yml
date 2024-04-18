@@ -32,10 +32,12 @@ steps:
   - name: publish api
     image: plugins/docker
     settings:
-      username: 
-       from_secret: docker_username
-      password: 
-       from_secret: docker_password
+      username:
+        from_secret: DockerUsername
+      password:
+        from_secret: DockerPassword
+      context: src
+      dockerfile: src/WeatherAPI/Dockerfile
       repo: hazemalkhani/weather-api
       tags: staging
 
