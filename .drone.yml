@@ -11,7 +11,7 @@ steps:
     commands:
       - exit 0
       - dotnet sonarscanner begin
-          /k:"easv-devops_CDWeatherExample_AY4d5zUxEVvRW2O60EXK"
+          /k:"easv-devops_Hazem-CDWeatherExample_AY7un1kuEVvRW2O60EyB"
           /d:sonar.host.url="http://sonar.setgo.dk:9000"  
           /d:sonar.token="$SONARSECRET"
           /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
@@ -38,8 +38,8 @@ steps:
         from_secret: DockerPassword
       context: src
       dockerfile: src/WeatherAPI/Dockerfile
-      repo: boulundeasv/cd-weather-api
-      tags: 
+      repo: hazemalkhani/weather-api
+      tags:
         - staging
 
   - name: publish web
@@ -51,15 +51,17 @@ steps:
         from_secret: DockerPassword
       context: src
       dockerfile: src/WeatherFrontend/Dockerfile
-      repo: boulundeasv/cd-weather-web
-      tags: 
+      repo: hazemalkhani/weather-frontend
+      tags:
         - staging
+
 
   - name: trigger update
     image: curlimages/curl
     commands:
-      - "curl --fail -X GET 'http://84.247.167.129:8080/v1/update' -H 'Authorization: Bearer mytoken'" # Must match the token defined in docker-compose.yml
+      - "curl --fail -X GET 'http://c/v1/update' -H 'Authorization: Bearer mytoken'"
       - sleep 10
+    
     depends_on:
       - publish api
       - publish web
@@ -68,10 +70,11 @@ steps:
     image: flyway/flyway
     commands:
       - flyway migrate
-          -url=jdbc:mariadb://84.247.167.129:3306/forecasts
-          -user=myuser
-          -password=mypassword
-          -locations=filesystem:./db/sql
+        -url=jdbc:mariadb://62.169.21.165:3306/forecasts
+        -user=myuser
+        -password=mypassword
+        -locations=filesystem:./db/sql
+    
     depends_on:
       - trigger update
 

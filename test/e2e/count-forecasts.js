@@ -5,11 +5,11 @@ Write a TestCafe javascript file that tests the following:
 import { Selector } from 'testcafe';
 
 fixture `Count Forecasts`
-    .page `http://84.247.167.129:5001/`;
+    .page `http://62.169.21.165:5001/`;
 
 test('Count Forecasts', async t => {
     // Connects to the API and gets the count of forecasts
-    let forecastCount = (await t.request("http://84.247.167.129:5002/weatherforecast")).body.length;
+    let forecastCount = (await t.request("http://62.169.21.165:5002/weatherforecast")).body.length;
 
     // Counts the number of table rows in the forecast table.
     let tableRowCount = Selector("table#forecasts tbody tr").count;
