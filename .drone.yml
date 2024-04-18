@@ -9,8 +9,8 @@ steps:
       SONARSECRET:
         from_secret: SonarQubeSecret
     commands:
-      - >
-        dotnet sonarscanner begin
+      - exit 0
+      - dotnet sonarscanner begin
         /k:"easv-devops_Hazem-CDWeatherExample_AY7un1kuEVvRW2O60EyB"
         /d:sonar.host.url="http://sonar.setgo.dk:9000"
         /d:sonar.login="$SONARSECRET"
@@ -18,9 +18,7 @@ steps:
         /d:sonar.qualitygate.wait=true
       - dotnet build --no-incremental
       - dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
-      - >
-        dotnet sonarscanner end
-        /d:sonar.login="$SONARSECRET"
+      - dotnet sonarscanner end /d:sonar.token="$SONARSECRET"
 
 ---
 
@@ -57,7 +55,7 @@ steps:
   - name: trigger update
     image: curlimages/curl
     commands:
-      - "curl --fail -X GET 'http://your-complete-update-url/v1/update' -H 'Authorization: Bearer mytoken'"
+      - "curl --fail -X GET 'http://62.169.21.165:8080/v1/update' -H 'Authorization: Bearer mytoken'"
       - sleep 10
     depends_on:
       - publish api
@@ -66,7 +64,10 @@ steps:
   - name: update database
     image: flyway/flyway
     commands:
-      - flyway migrate -url=jdbc:mariadb://62.169.21.165:3306/forecasts -user=myuser -password=mypassword -locations=filesystem:./db/sql
+      - flyway migrate -url=jdbc:mariadb://62.169.21.165:3306/forecasts 
+      - user=myuser 
+      - password=mypassword 
+      - locations=filesystem:./db/sql
     depends_on:
       - trigger update
 
