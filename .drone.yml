@@ -1,24 +1,26 @@
 kind: pipeline
 type: docker
 name: integration
- 
+
 steps:
   - name: code-analysis
     image: boulundeasv/dotnet-sdk-with-java
     environment:
-      SONARSECRET:
-        from_secret: SonarQubeSecret
+      SONARSECRET: 
+      from_secret: SonarQubeSecret
     commands:
-      - exit 0
-      - dotnet sonarscanner begin
-          /k:"easv-devops_Hazem-CDWeatherExample_AY7un1kuEVvRW2O60EyB"
-          /d:sonar.host.url="http://sonar.setgo.dk:9000"  
-          /d:sonar.token="$SONARSECRET"
-          /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-          /d:sonar.qualitygate.wait=true
+      - >
+        dotnet sonarscanner begin
+        /k:"easv-devops_Hazem-CDWeatherExample_AY7un1kuEVvRW2O60EyB"
+        /d:sonar.host.url="http://sonar.setgo.dk:9000"
+        /d:sonar.login="$SONARSECRET"
+        /d:sonar.cs.vscoveragexml.reportsPaths="coverage.xml"
+        /d:sonar.qualitygate.wait=true
       - dotnet build --no-incremental
       - dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
-      - dotnet sonarscanner end /d:sonar.token="$SONARSECRET"
+      - >
+        dotnet sonarscanner end
+        /d:sonar.login="$SONARSECRET"
 
 ---
 
@@ -29,37 +31,32 @@ depends_on:
   - integration
 
 steps:
-  - name: publish docker image
+  - name: publish api
     image: plugins/docker
     settings:
-      username:
-        from_secret: docker_username
+      username: 
+      from_secret: docker_username
       password:
-        from_secret: docker_password
       repo: hazemalkhani/weather-api
       tags: staging
-
 
   - name: publish web
     image: plugins/docker
     settings:
       username:
-        from_secret: DockerUsername
-      password:
-        from_secret: DockerPassword
+      password: 
+      from_secret: DockerPassword
       context: src
       dockerfile: src/WeatherFrontend/Dockerfile
       repo: hazemalkhani/weather-frontend
       tags:
         - staging
 
-
   - name: trigger update
     image: curlimages/curl
     commands:
-      - "curl --fail -X GET 'http://c/v1/update' -H 'Authorization: Bearer mytoken'"
+      - "curl --fail -X GET 'http://your-complete-update-url/v1/update' -H 'Authorization: Bearer mytoken'"
       - sleep 10
-    
     depends_on:
       - publish api
       - publish web
@@ -67,12 +64,7 @@ steps:
   - name: update database
     image: flyway/flyway
     commands:
-      - flyway migrate
-        -url=jdbc:mariadb://62.169.21.165:3306/forecasts
-        -user=myuser
-        -password=mypassword
-        -locations=filesystem:./db/sql
-    
+      - flyway migrate -url=jdbc:mariadb://62.169.21.165:3306/forecasts -user=myuser -password=mypassword -locations=filesystem:./db/sql
     depends_on:
       - trigger update
 
