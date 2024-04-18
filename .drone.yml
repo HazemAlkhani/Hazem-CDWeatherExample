@@ -6,8 +6,8 @@ steps:
   - name: code-analysis
     image: boulundeasv/dotnet-sdk-with-java
     environment:
-      SONARSECRET: 
-      from_secret: SonarQubeSecret
+      SONARSECRET:
+        from_secret: SonarQubeSecret
     commands:
       - >
         dotnet sonarscanner begin
@@ -35,17 +35,19 @@ steps:
     image: plugins/docker
     settings:
       username: 
-      from_secret: docker_username
-      password:
+       from_secret: docker_username
+      password: 
+       from_secret: docker_password
       repo: hazemalkhani/weather-api
       tags: staging
 
   - name: publish web
     image: plugins/docker
     settings:
-      username:
-      password: 
-      from_secret: DockerPassword
+      username: 
+       from_secret: DockerUsername
+      password:
+        from_secret: DockerPassword
       context: src
       dockerfile: src/WeatherFrontend/Dockerfile
       repo: hazemalkhani/weather-frontend
