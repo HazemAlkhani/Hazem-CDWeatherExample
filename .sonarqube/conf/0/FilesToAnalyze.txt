@@ -1,0 +1,1 @@
+﻿C:\Users\hazem\RiderProjects\CDWeatherExample-\src\Models\WeatherForecast.cs

@@ -1,0 +1,14 @@
+﻿C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\DatabaseService.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\ForecastService.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\IDatabaseService.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\Program.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\obj\Debug\net8.0\WeatherAPI.GlobalUsings.g.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\obj\Debug\net8.0\WeatherAPI.AssemblyInfo.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\obj\Debug\net8.0\WeatherAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\appsettings.Development.json
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\appsettings.json
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\.dockerignore
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\Dockerfile
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\WeatherAPI.http
+C:\Users\hazem\RiderProjects\CDWeatherExample-\src\WeatherAPI\Properties\launchSettings.json
