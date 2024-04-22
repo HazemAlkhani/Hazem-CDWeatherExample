@@ -9,7 +9,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
   
   weather-api:
-    image: hazemalkhani/weather-api:staging
+    image: 
     ports:
       - "5002:8080"
     depends_on:
