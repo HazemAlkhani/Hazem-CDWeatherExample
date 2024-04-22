@@ -9,14 +9,15 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
   
   weather-api:
-    image: 
+    image: hazemalkhani/weather-api:staging
     ports:
       - "5002:8080"
     depends_on:
       - mariadb
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-
+  
+  
   mariadb:
     image: mariadb:latest
     restart: always
