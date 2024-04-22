@@ -1,9 +1,9 @@
 ﻿services:
   weather-frontend:
-    image: boulundeasv/cd-weather-web:prod
+    image: hazemalkhani/weather-frontend:prod
   
   weather-api:
-    image: boulundeasv/cd-weather-api:prod
+    image: hazemalkhani/weather-api:prod
   
   featurehub:
     image: featurehub/party-server:latest
